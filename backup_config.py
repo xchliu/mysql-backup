@@ -7,4 +7,4 @@ class config():
     host='localhost'
     port=[3308]
     clear_days=1
-    mailto_list=["xchliu@bainainfo.com"] 
+    mailto_list=["xchliu@test.com"] 
