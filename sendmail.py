@@ -3,8 +3,8 @@ from email.mime.text import MIMEText
 
 #####################  
 mail_host="smtp.163.com"
-mail_user="dbreport"  
-mail_pass="reportdb"  
+mail_user=""  
+mail_pass=""  
 mail_postfix="163.com"  
 ######################  
 def send_mail(to_list,sub,content):  
