@@ -5,6 +5,6 @@ class config():
     user='backup'
     pwd='backup'
     host='localhost'
-    port=[3308]
+    port=[3306]
     clear_days=1
     mailto_list=["xchliu@test.com"] 
