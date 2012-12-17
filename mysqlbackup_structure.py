@@ -29,7 +29,7 @@ def backup(port,type):
             if database == 'information_schema'or database=='performance_schema'or database=='test':
                 continue
             else:            
-                filename=back_dir+"/"+database+"_"+fname+".sql"
+                filename=back_dir+"/"+database+"_"+fname+".str"
                 if type==1:
                     dump_sql="mysqldump -u%s -p%s -h %s -e -P%s --opt -d --flush-logs --single-transaction %s >%s" % (user,pwd,host,int(port),database,filename)
                 else:
