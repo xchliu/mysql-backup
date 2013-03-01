@@ -39,25 +39,26 @@ def backup(port):
                     os.popen("mysqldump -u%s -p%s -h %s -e -P%s --opt --master-data --flush-logs --single-transaction %s >%s" % (user,pwd,host,int(port),database,filename))
                 else:
                     os.popen("mysqldump -u%s -p%s -h %s -e -P%s --opt  --flush-logs --single-transaction %s >%s" % (user,pwd,host,int(port),database,filename))
-                mail_content+="    "+database+":"+str("%.4f"%(float((os.path.getsize(filename)))/float((1024*1024*1024))))+"G"+"\n"               
-        return 1
+		mail_content+="    "+database+":"+str("%.4f"%(float((os.path.getsize(filename)))/float((1024*1024*1024))))+"G"+"\n"               
         file_zip(backup_dir+filetime)
+	return 1
     except Exception,ex:
         print ex
        # return ex
        
 def file_zip(foldername):
-    filename=filetime+".zip"
+    filename=foldername+".zip"
     f=zipfile.ZipFile(filename,'w',zipfile.ZIP_DEFLATED)
     startdir = foldername
     for dirpath, dirnames, filenames in os.walk(startdir):
         for filename in filenames:
             f.write(os.path.join(dirpath,filename))
     f.close()
+    os.popen("rm -rf %s" % foldername)
 
 def file_clear(): 
     global mail_content  
-    clear_file=backup_dir+str(datetime.date.today()-datetime.timedelta(days=clear_days))  
+    clear_file=backup_dir+str(datetime.date.today()-datetime.timedelta(days=clear_days))+".zip" 
     if (os.path.exists(clear_file)):
         mail_content+="##"+"delete backup file :"+clear_file+"\n"+"\n"
         shutil.rmtree(clear_file)
