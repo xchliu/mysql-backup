@@ -4,7 +4,7 @@ class config():
     cnf_dir='/mysql3308/my.cnf'
     user='backup'
     pwd='backup'
-    host='localhost'
+    host='10.2.1.218'
     port=[3306]
     clear_days=1
     mailto_list=["xchliu@test.com"] 

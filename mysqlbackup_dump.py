@@ -37,16 +37,20 @@ def backup(port):
                 os.popen("mysqldump -u%s -p%s -h %s -e -P%s --opt --master-data --flush-logs --single-transaction %s >%s" % (user,pwd,host,int(port),database,filename))
                 mail_content+="    "+database+":"+str("%.4f"%(float((os.path.getsize(filename)))/float((1024*1024*1024))))+"G"+"\n"               
         return 1
-        #file_zip(backup_dir+filetime)
+        file_zip(backup_dir+filetime)
     except Exception,ex:
         print ex
        # return ex
        
 def file_zip(foldername):
-    filename=filetime
+    filename=filetime+".zip"
     f=zipfile.ZipFile(filename,'w',zipfile.ZIP_DEFLATED)
-    f.write(foldername)
+    startdir = foldername
+    for dirpath, dirnames, filenames in os.walk(startdir):
+        for filename in filenames:
+            f.write(os.path.join(dirpath,filename))
     f.close()
+
 def file_clear(): 
     global mail_content  
     clear_file=backup_dir+str(datetime.date.today()-datetime.timedelta(days=clear_days))  
