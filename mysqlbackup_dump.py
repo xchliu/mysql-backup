@@ -8,6 +8,7 @@ user=config.user
 pwd=config.pwd
 host=config.host
 port=config.port
+role=config.role
 clear_days=config.clear_days
 mailto_list=config.mailto_list
 mail_content="Backup_report for "+server+"\n"+"\n"
@@ -34,7 +35,10 @@ def backup(port):
                 continue
             else:            
                 filename=back_dir+"/"+database+"_"+fname+".sql"
-                os.popen("mysqldump -u%s -p%s -h %s -e -P%s --opt --master-data --flush-logs --single-transaction %s >%s" % (user,pwd,host,int(port),database,filename))
+                if role=="master":
+                    os.popen("mysqldump -u%s -p%s -h %s -e -P%s --opt --master-data --flush-logs --single-transaction %s >%s" % (user,pwd,host,int(port),database,filename))
+                else:
+                    os.popen("mysqldump -u%s -p%s -h %s -e -P%s --opt  --flush-logs --single-transaction %s >%s" % (user,pwd,host,int(port),database,filename))
                 mail_content+="    "+database+":"+str("%.4f"%(float((os.path.getsize(filename)))/float((1024*1024*1024))))+"G"+"\n"               
         return 1
         file_zip(backup_dir+filetime)
