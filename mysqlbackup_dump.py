@@ -48,7 +48,7 @@ def backup(port):
        
 def file_zip(foldername):
     filename=foldername+".zip"
-    f=zipfile.ZipFile(filename,'w',zipfile.ZIP_DEFLATED)
+    f=zipfile.ZipFile(filename,'w',zipfile.ZIP_DEFLATED,allowZip64=True)
     startdir = foldername
     for dirpath, dirnames, filenames in os.walk(startdir):
         for filename in filenames:
