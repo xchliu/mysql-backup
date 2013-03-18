@@ -34,7 +34,7 @@ def backup(port):
             if database == 'information_schema'or database=='performance_schema'or database=='test':
                 continue
             else:            
-                filename=back_dir+"/"+database+"_"+fname+".sql"
+                filename=back_dir+database+"_"+fname+".sql"
                 if role=="master":
                     os.popen("mysqldump -u%s -p%s -h %s -e -P%s --opt --master-data --flush-logs --single-transaction %s >%s" % (user,pwd,host,int(port),database,filename))
                 else:
