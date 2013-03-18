@@ -61,7 +61,8 @@ def file_clear():
     clear_file=backup_dir+str(datetime.date.today()-datetime.timedelta(days=clear_days))+".zip" 
     if (os.path.exists(clear_file)):
         mail_content+="##"+"delete backup file :"+clear_file+"\n"+"\n"
-        shutil.rmtree(clear_file)
+        #shutil.rmtree(clear_file)
+        os.remove(clear_file)
     else:
         mail_content+="##"+clear_file+"  does not exists!"+"\n"+"\n"
 def disk_info():
